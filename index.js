@@ -3,6 +3,9 @@ var Container = typeof Buffer !== "undefined" ? Buffer //in node, use buffers
 		: function(l){ var a=new Array(l); for(var i=0;i<l;i++)a[i]=0; }; //else, do something similar
 
 function BitField(data){
+	if(!(this instanceof BitField)) {
+		return new BitField(data);
+	}
 	if(typeof data === "number"){
 		if(data % 8 !== 0) data += 1 << 3;
 		data = new Container(data >> 3);
