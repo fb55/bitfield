@@ -9,19 +9,20 @@ function BitField(data){
 	if(typeof data === "number"){
 		if(data % 8 !== 0) data += 1 << 3;
 		data = new Container(data >> 3);
+		if(data.fill) data.fill(0); // clear node buffers of garbage
 	}
 	this.buffer = data;
 }
 
 BitField.prototype.get = function(i){
-	return !!(this.buffer[i >> 3] & (1 << (i % 8)));
+	return !!(this.buffer[i >> 3] & (128 >> (i % 8)));
 };
 
 BitField.prototype.set = function(i, b){
 	if(b || arguments.length === 1){
-		this.buffer[i >> 3] |= 1 << (i % 8);
+		this.buffer[i >> 3] |= 128 >> (i % 8);
 	} else {
-		this.buffer[i >> 3] &= ~(1 << (i % 8));
+		this.buffer[i >> 3] &= ~(128 >> (i % 8));
 	}
 };
 
