@@ -15,14 +15,14 @@ function BitField(data){
 }
 
 BitField.prototype.get = function(i){
-	return !!(this.buffer[i >> 3] & (1 << (i % 8)));
+	return !!(this.buffer[i >> 3] & (128 >> (i % 8)));
 };
 
 BitField.prototype.set = function(i, b){
 	if(b || arguments.length === 1){
-		this.buffer[i >> 3] |= 1 << (i % 8);
+		this.buffer[i >> 3] |= 128 >> (i % 8);
 	} else {
-		this.buffer[i >> 3] &= ~(1 << (i % 8));
+		this.buffer[i >> 3] &= ~(128 >> (i % 8));
 	}
 };
 
