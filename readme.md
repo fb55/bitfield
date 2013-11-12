@@ -13,3 +13,7 @@ a very simple bitfield
 
 ####Properties
 `BitField#buffer`: The contents of the BitField.
+
+## License
+
+MIT
