@@ -12,6 +12,6 @@
     "buffer"
   ],
   "author": "Felix Boehm <me@feedic.com>",
-  "license": "-",
+  "license": "MIT",
   "readmeFilename": "readme.md"
 }
