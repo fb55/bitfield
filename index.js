@@ -37,9 +37,12 @@ BitField.prototype.set = function(i, b){
 
 BitField.prototype._grow = function(length) {
         if (this.buffer.length < length) {
-                var zero = new Buffer(length - this.buffer.length);
-                zero.fill(0);
-                this.buffer = Buffer.concat([this.buffer, zero], length);
+                var newBuffer = new Container(length);
+                if (newBuffer.fill) newBuffer.fill(0);
+                for(var i = 0; i < this.buffer.length; i++) {
+                    newBuffer[i] = this.buffer[i];
+                }
+                this.buffer = newBuffer;
         }
 }
 
