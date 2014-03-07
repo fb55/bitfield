@@ -16,11 +16,8 @@ function BitField(data){
 
 BitField.prototype.get = function(i){
 	var j = i >> 3;
-	if (j < this.buffer.length) {
-		return !!(this.buffer[j] & (128 >> (i % 8)));
-	} else {
-		return false;
-	}
+	return (j < this.buffer.length) &&
+		!!(this.buffer[j] & (128 >> (i % 8)));
 };
 
 BitField.prototype.set = function(i, b){
