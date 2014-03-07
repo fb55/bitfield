@@ -22,4 +22,17 @@ for(var i = data.length; i < 1e3; i++){
 	assert.strictEqual(field.get(i), false, "out-of-bounds should simply be false");
 }
 
+var index = 25;
+for(var i = 0; i < 100; i++) {
+    index += 8 + Math.floor(32 * Math.random());
+
+    var oldLength = field.buffer.length;
+    assert.strictEqual(field.get(index), false);
+    assert.equal(field.buffer.length, oldLength, "should not have grown for get()");
+    field.set(index, true);
+    var newLength = Math.ceil((index + 1) / 8);
+    assert.equal(field.buffer.length, newLength, "should have grown for set()");
+    assert.strictEqual(field.get(index), true);
+}
+
 console.log("passed");
