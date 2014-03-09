@@ -15,15 +15,32 @@ function BitField(data){
 }
 
 BitField.prototype.get = function(i){
-	return !!(this.buffer[i >> 3] & (128 >> (i % 8)));
+	var j = i >> 3;
+	return (j < this.buffer.length) &&
+		!!(this.buffer[j] & (128 >> (i % 8)));
 };
 
 BitField.prototype.set = function(i, b){
-	if(b || arguments.length === 1){
-		this.buffer[i >> 3] |= 128 >> (i % 8);
-	} else {
-		this.buffer[i >> 3] &= ~(128 >> (i % 8));
+	var j = i >> 3;
+	if (b || arguments.length === 1){
+		this._grow(j + 1);
+		/* Set */
+		this.buffer[j] |= 128 >> (i % 8);
+	} else if (j < this.buffer.length) {
+		/* Clear */
+		this.buffer[j] &= ~(128 >> (i % 8));
 	}
 };
+
+BitField.prototype._grow = function(length) {
+	if (this.buffer.length < length) {
+		var newBuffer = new Container(length);
+		if (newBuffer.fill) newBuffer.fill(0);
+		for(var i = 0; i < this.buffer.length; i++) {
+			newBuffer[i] = this.buffer[i];
+		}
+		this.buffer = newBuffer;
+	}
+}
 
 if(typeof module !== "undefined") module.exports = BitField;
