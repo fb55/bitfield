@@ -6,7 +6,7 @@ function BitField(data){
 	if(!(this instanceof BitField)) {
 		return new BitField(data);
 	}
-	if(typeof data === "number"){
+	if(typeof data === "number" || data === undefined){
 		if(data % 8 !== 0) data += 1 << 3;
 		data = new Container(data >> 3);
 		if(data.fill) data.fill(0); // clear node buffers of garbage

@@ -35,4 +35,7 @@ for(var i = 0; i < 100; i++) {
     assert.strictEqual(field.get(index), true);
 }
 
+var field2 = new BitField();
+assert.ok(field2.buffer, "if no data or size passed in, should assume size 0");
+
 console.log("passed");
