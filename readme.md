@@ -30,6 +30,8 @@ field.buffer; //the buffer used by bitfield
 
 `Bitfield#set(index[, value])`: Values defaults to true. Sets the bit to the boolean value of the value (true = 1, false = 0).
 
+If you `set` an index that is out-of-bounds, the Bitfield will automatically grow so that the bitfield is big enough to contain the given index.
+
 ####Properties
 `Bitfield#buffer`: The contents of the bitfield.
 
