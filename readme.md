@@ -32,6 +32,9 @@ field.buffer; //the buffer used by bitfield
 
 If you `set` an index that is out-of-bounds, the Bitfield will automatically grow so that the bitfield is big enough to contain the given index.
 
+__PLEASE CHECK FOR SANE INDEXES! OTHERWISE, THIS MODULE MIGHT CONSUME ALL AVAILABLE MEMORY AND CAUSE YOUR APPLICATION TO CRASH.__
+
+
 ####Properties
 `Bitfield#buffer`: The contents of the bitfield.
 
