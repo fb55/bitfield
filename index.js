@@ -11,14 +11,20 @@ function BitField(data, opts){
 		data = 0;
 	}
 
-	this.grow = (opts && opts.grow) || 0;
+	this.grow = opts && (isFinite(opts.grow) && getByteSize(opts.grow) || opts.grow) || 0;
 
 	if(typeof data === "number" || data === undefined){
 		if(data % 8 !== 0) data += 1 << 3;
-		data = new Container(data >> 3);
+		data = new Container(getByteSize(data));
 		if(data.fill) data.fill(0); // clear node buffers of garbage
 	}
 	this.buffer = data;
+}
+
+function getByteSize(num){
+	var out = num >> 3;
+	if(num % 8 !== 0) out++;
+	return out;
 }
 
 BitField.prototype.get = function(i){
@@ -31,10 +37,10 @@ BitField.prototype.set = function(i, b){
 	var j = i >> 3;
 	if (b || arguments.length === 1){
 		this._grow(j + 1);
-		/* Set */
+		// Set
 		this.buffer[j] |= 128 >> (i % 8);
 	} else if (j < this.buffer.length) {
-		/* Clear */
+		/// Clear
 		this.buffer[j] &= ~(128 >> (i % 8));
 	}
 };
@@ -48,6 +54,6 @@ BitField.prototype._grow = function(length) {
 		}
 		this.buffer = newBuffer;
 	}
-}
+};
 
 if(typeof module !== "undefined") module.exports = BitField;
