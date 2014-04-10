@@ -8,12 +8,15 @@
     "url": "https://github.com/fb55/bitfield"
   },
   "scripts": {
-    "test": "node tests.js"
+    "test": "tape tests.js"
   },
   "keywords": [
     "bitfield",
     "buffer"
   ],
+  "devDependencies": {
+    "tape": "2.12"
+  },
   "author": "Felix Boehm <me@feedic.com>",
   "license": "MIT",
   "readmeFilename": "readme.md"
