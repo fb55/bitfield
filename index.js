@@ -2,7 +2,7 @@ var Container = typeof Buffer !== "undefined" ? Buffer //in node, use buffers
 		: typeof Int8Array !== "undefined" ? Int8Array //in newer browsers, use webgl int8arrays
 		: function(l){ var a = new Array(l); for(var i = 0; i < l; i++) a[i]=0; }; //else, do something similar
 
-function BitField(data){
+function BitField(data, opts){
 	if(!(this instanceof BitField)) {
 		return new BitField(data);
 	}
@@ -11,7 +11,9 @@ function BitField(data){
 		data = 0;
 	}
 
-	if(typeof data === "number"){
+  this.grow = (opts && opts.grow) || 0;
+
+	if(typeof data === "number" || data === undefined){
 		if(data % 8 !== 0) data += 1 << 3;
 		data = new Container(data >> 3);
 		if(data.fill) data.fill(0); // clear node buffers of garbage
@@ -38,7 +40,7 @@ BitField.prototype.set = function(i, b){
 };
 
 BitField.prototype._grow = function(length) {
-	if (this.buffer.length < length) {
+	if (this.buffer.length < length && length <= this.grow) {
 		var newBuffer = new Container(length);
 		if (newBuffer.fill) newBuffer.fill(0);
 		for(var i = 0; i < this.buffer.length; i++) {
