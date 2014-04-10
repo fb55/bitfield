@@ -1,6 +1,6 @@
 {
   "name": "bitfield",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a very simple bitfield implementation using buffers",
   "main": "index.js",
   "repository": {
