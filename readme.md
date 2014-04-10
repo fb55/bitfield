@@ -30,9 +30,8 @@ field.buffer; //the buffer used by bitfield
 
 `Bitfield#set(index[, value])`: Values defaults to true. Sets the bit to the boolean value of the value (true = 1, false = 0).
 
-If you `set` an index that is out-of-bounds, the Bitfield will automatically grow so that the bitfield is big enough to contain the given index.
-
-__PLEASE CHECK FOR SANE INDEXES! OTHERWISE, THIS MODULE MIGHT CONSUME ALL AVAILABLE MEMORY AND CAUSE YOUR APPLICATION TO CRASH.__
+##### Auto-grow mode
+`Bitfield(data, { grow: size })`: If you `set` an index that is out-of-bounds, the Bitfield will automatically grow so that the bitfield is big enough to contain the given index, up to the given `size`. If you want the Bitfield to grow indefinitely, pass `Infinity` as the size.
 
 
 ####Properties
