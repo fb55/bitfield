@@ -4,6 +4,8 @@ a very simple bitfield, compliant with the Bittorrent spec
 
     npm install bitfield
 
+[![browser support](https://ci.testling.com/fb55/bitfield.png)](https://ci.testling.com/fb55/bitfield)
+
 ####Example
 
 ```js
