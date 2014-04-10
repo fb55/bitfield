@@ -11,7 +11,7 @@ function BitField(data, opts){
 		data = 0;
 	}
 
-  this.grow = (opts && opts.grow) || 0;
+	this.grow = (opts && opts.grow) || 0;
 
 	if(typeof data === "number" || data === undefined){
 		if(data % 8 !== 0) data += 1 << 3;
