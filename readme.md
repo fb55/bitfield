@@ -26,11 +26,11 @@ field.buffer; //the buffer used by bitfield
 ```
 
 ####Methods
-`Bitfield(data)`: Data can be either a node.js buffer, WebGL Int8Array or numeric array, or a number representing the maximum number of supported bytes.
+`Bitfield(data)`: `data` can be either a node.js buffer, WebGL Int8Array or numeric array, or a number representing the maximum number of supported bytes.
 
 `Bitfield#get(index)`: Returns a boolean indicating whether the bit is set.
 
-`Bitfield#set(index[, value])`: Values defaults to true. Sets the bit to the boolean value of the value (true = 1, false = 0).
+`Bitfield#set(index[, value])`: `value` defaults to true. Sets the bit to `1` for a value of `true` or `0` for `false`.
 
 ##### Auto-grow mode
 `Bitfield(data, { grow: size })`: If you `set` an index that is out-of-bounds, the Bitfield will automatically grow so that the bitfield is big enough to contain the given index, up to the given `size` (in bit). If you want the Bitfield to grow indefinitely, pass `Infinity` as the size.
@@ -38,6 +38,7 @@ field.buffer; //the buffer used by bitfield
 
 ####Properties
 `Bitfield#buffer`: The contents of the bitfield.
+
 `Bitfield#grow`: The passed growth option (defaults to `0`).
 
 ##License
