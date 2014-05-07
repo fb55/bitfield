@@ -14,7 +14,6 @@ function BitField(data, opts){
 	this.grow = opts && (isFinite(opts.grow) && getByteSize(opts.grow) || opts.grow) || 0;
 
 	if(typeof data === "number" || data === undefined){
-		if(data % 8 !== 0) data += 1 << 3;
 		data = new Container(getByteSize(data));
 		if(data.fill) data.fill(0); // clear node buffers of garbage
 	}

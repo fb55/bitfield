@@ -96,3 +96,24 @@ test("if no data or size passed in, should assume size 0", function(t){
 
 	t.end();
 });
+
+test("correct size bitfield", function(t){
+  t.equal(new BitField(1).buffer.length, 1);
+  t.equal(new BitField(2).buffer.length, 1);
+  t.equal(new BitField(3).buffer.length, 1);
+  t.equal(new BitField(4).buffer.length, 1);
+  t.equal(new BitField(5).buffer.length, 1);
+  t.equal(new BitField(6).buffer.length, 1);
+  t.equal(new BitField(7).buffer.length, 1);
+  t.equal(new BitField(8).buffer.length, 1);
+  t.equal(new BitField(9).buffer.length, 2);
+  t.equal(new BitField(10).buffer.length, 2);
+  t.equal(new BitField(11).buffer.length, 2);
+  t.equal(new BitField(12).buffer.length, 2);
+  t.equal(new BitField(13).buffer.length, 2);
+  t.equal(new BitField(14).buffer.length, 2);
+  t.equal(new BitField(15).buffer.length, 2);
+  t.equal(new BitField(16).buffer.length, 2);
+  t.equal(new BitField(17).buffer.length, 3);
+  t.end();
+});
