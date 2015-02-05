@@ -65,7 +65,7 @@ test("should be able to grow to infinity", function(t){
 		t.equal(growField.buffer.length, oldLength, "should not have grown for get()");
 		growField.set(index, true);
 		var newLength = Math.ceil((index + 1) / 8);
-		t.equal(growField.buffer.length, newLength, "should have grown for set()");
+		t.ok(growField.buffer.length >= newLength, "should have grown for set()");
 		t.strictEqual(growField.get(index), true);
 	}
 
@@ -79,7 +79,7 @@ test("should restrict growth to growth option", function(t){
 		var oldLength = smallGrowField.buffer.length;
 		smallGrowField.set(i, true);
 		if (i <= 55) {
-			t.equal(smallGrowField.buffer.length, (i >> 3) + 1, "should have grown for set()");
+			t.ok(smallGrowField.buffer.length >= (i >> 3) + 1, "should have grown for set()");
 			t.strictEqual(smallGrowField.get(i), true);
 		} else {
 			t.equal(smallGrowField.buffer.length, oldLength, "should not have grown for set()");
