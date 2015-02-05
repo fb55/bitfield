@@ -35,7 +35,7 @@ BitField.prototype.get = function(i){
 BitField.prototype.set = function(i, b){
 	var j = i >> 3;
 	if (b || arguments.length === 1){
-		this._grow(j + 1);
+		if (this.buffer.length < j + 1) this._grow(Math.max(j + 1, Math.min(2 * this.buffer.length, this.grow)));
 		// Set
 		this.buffer[j] |= 128 >> (i % 8);
 	} else if (j < this.buffer.length) {
@@ -48,8 +48,11 @@ BitField.prototype._grow = function(length) {
 	if (this.buffer.length < length && length <= this.grow) {
 		var newBuffer = new Container(length);
 		if (newBuffer.fill) newBuffer.fill(0);
-		for(var i = 0; i < this.buffer.length; i++) {
-			newBuffer[i] = this.buffer[i];
+		if (this.buffer.copy) this.buffer.copy(newBuffer, 0);
+		else {
+			for(var i = 0; i < this.buffer.length; i++) {
+				newBuffer[i] = this.buffer[i];
+			}
 		}
 		this.buffer = newBuffer;
 	}
