@@ -4,7 +4,7 @@ var Container = typeof Buffer !== "undefined" ? Buffer //in node, use buffers
 
 function BitField(data, opts){
 	if(!(this instanceof BitField)) {
-		return new BitField(data);
+		return new BitField(data, opts);
 	}
 
 	if(arguments.length === 0){
