@@ -15,7 +15,7 @@ function BitField(data, opts){
 
 	if(typeof data === "number" || data === undefined){
 		data = new Container(getByteSize(data));
-		if(data.fill) data.fill(0); // clear node buffers of garbage
+		if(data.fill && !data._isBuffer) data.fill(0); // clear node buffers of garbage
 	}
 	this.buffer = data;
 }
