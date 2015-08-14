@@ -8,13 +8,14 @@
     "url": "https://github.com/fb55/bitfield"
   },
   "scripts": {
-    "test": "tape tests.js"
+    "test": "standard && tape tests.js"
   },
   "keywords": [
     "bitfield",
     "buffer"
   ],
   "devDependencies": {
+    "standard": "^5.1.0",
     "tape": "2.12"
   },
   "testling": {
