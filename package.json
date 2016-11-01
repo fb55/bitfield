@@ -15,8 +15,8 @@
     "buffer"
   ],
   "devDependencies": {
-    "standard": "^5.1.0",
-    "tape": "2.12"
+    "standard": "^8.5.0",
+    "tape": "~4.6.2"
   },
   "testling": {
     "files": "tests.js",
