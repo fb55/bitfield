@@ -1,4 +1,4 @@
-#bitfield
+# bitfield
 
 a very simple bitfield, compliant with the Bittorrent spec
 
@@ -6,7 +6,7 @@ a very simple bitfield, compliant with the Bittorrent spec
 
 [![browser support](https://ci.testling.com/fb55/bitfield.png)](https://ci.testling.com/fb55/bitfield)
 
-####Example
+#### Example
 
 ```js
 var Bitfield = require("bitfield");
@@ -25,7 +25,7 @@ field.set(128, false); //set the 128th bit to 0 again
 field.buffer; //the buffer used by bitfield
 ```
 
-####Methods
+#### Methods
 `Bitfield(data)`: `data` can be either a node.js buffer, WebGL Int8Array or numeric array, or a number representing the maximum number of supported bytes.
 
 `Bitfield#get(index)`: Returns a boolean indicating whether the bit is set.
@@ -36,11 +36,12 @@ field.buffer; //the buffer used by bitfield
 `Bitfield(data, { grow: size })`: If you `set` an index that is out-of-bounds, the Bitfield will automatically grow so that the bitfield is big enough to contain the given index, up to the given `size` (in bit). If you want the Bitfield to grow indefinitely, pass `Infinity` as the size.
 
 
-####Properties
+#### Properties
+
 `Bitfield#buffer`: The contents of the bitfield.
 
 `Bitfield#grow`: The passed growth option (defaults to `0`).
 
-##License
+## License
 
 MIT
