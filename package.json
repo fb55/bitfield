@@ -16,7 +16,7 @@
   ],
   "devDependencies": {
     "standard": "^10.0.1",
-    "tape": "~4.7.0"
+    "tape": "~4.8.0"
   },
   "testling": {
     "files": "tests.js",
