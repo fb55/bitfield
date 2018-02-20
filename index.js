@@ -1,15 +1,7 @@
 var Container = typeof Buffer !== 'undefined'
   ? Buffer // in node, use buffers
-  : typeof Int8Array !== 'undefined'
-    ? Int8Array // in newer browsers, use webgl int8arrays
-    : function (l) {
-      // else, do something similar
-      var a = new Array(l)
-      for (var i = 0; i < l; i++) {
-        a[i] = 0
-      }
-      return a
-    }
+  : Int8Array // in browsers, use typed arrays
+
 
 function BitField (data, opts) {
   if (!(this instanceof BitField)) {
