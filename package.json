@@ -18,16 +18,6 @@
     "standard": "^11.0.0",
     "tape": "~4.9.0"
   },
-  "testling": {
-    "files": "tests.js",
-    "browsers": [
-      "ie/9..latest",
-      "chrome/25..latest",
-      "firefox/20..latest",
-      "safari/6..latest",
-      "opera/15.0..latest"
-    ]
-  },
   "author": "Felix Boehm <me@feedic.com>",
   "license": "MIT",
   "readmeFilename": "readme.md"
