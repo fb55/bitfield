@@ -1,6 +1,6 @@
 var Container = typeof Buffer !== 'undefined'
   ? Buffer // in node, use buffers
-  : Int8Array // in browsers, use typed arrays
+  : Uint8Array // in browsers, use typed arrays
 
 function BitField (data, opts) {
   if (!(this instanceof BitField)) {
