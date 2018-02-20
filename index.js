@@ -2,7 +2,6 @@ var Container = typeof Buffer !== 'undefined'
   ? Buffer // in node, use buffers
   : Int8Array // in browsers, use typed arrays
 
-
 function BitField (data, opts) {
   if (!(this instanceof BitField)) {
     return new BitField(data, opts)
@@ -12,10 +11,10 @@ function BitField (data, opts) {
     data = 0
   }
 
-  this.grow = opts && (isFinite(opts.grow) && getByteSize(opts.grow) || opts.grow) || 0
+  this.grow = (opts && ((isFinite(opts.grow) && getByteSize(opts.grow)) || opts.grow)) || 0
 
   if (typeof data === 'number' || data === undefined) {
-    data = new Container(getByteSize(data))
+    data = new Container(getByteSize(data)) // eslint-disable-line node/no-deprecated-api
     if (data.fill && !data._isBuffer) data.fill(0) // clear node buffers of garbage
   }
   this.buffer = data
@@ -49,7 +48,7 @@ BitField.prototype.set = function (i, b) {
 
 BitField.prototype._grow = function (length) {
   if (this.buffer.length < length && length <= this.grow) {
-    var newBuffer = new Container(length)
+    var newBuffer = new Container(length) // eslint-disable-line node/no-deprecated-api
     if (newBuffer.fill) newBuffer.fill(0)
     if (this.buffer.copy) {
       this.buffer.copy(newBuffer, 0)
