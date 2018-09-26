@@ -16,7 +16,7 @@ class BitField {
       !!(this.buffer[j] & (128 >> (i % 8)))
   }
 
-  set (i, b = 1) {
+  set (i, b = true) {
     const j = i >> 3
     if (b) {
       if (this.buffer.length < j + 1) {
