@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "standard": "^12.0.1",
-    "tape": "~4.10.2"
+    "tape": "~4.11.0"
   },
   "keywords": [
     "bitfield",
