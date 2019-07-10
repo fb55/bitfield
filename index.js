@@ -5,7 +5,8 @@ function getByteSize (num) {
 }
 
 class BitField {
-  constructor (data = 0, { grow } = {}) {
+  constructor (data = 0, opts) {
+    const grow = opts != null && opts.grow
     this.grow = (grow && isFinite(grow) && getByteSize(grow)) || grow || 0
     this.buffer = typeof data === 'number' ? new Uint8Array(getByteSize(data)) : data
   }
