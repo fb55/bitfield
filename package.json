@@ -10,6 +10,9 @@
     "standard": "^12.0.1",
     "tape": "~4.11.0"
   },
+  "engines": {
+    "node": ">=8"
+  },
   "keywords": [
     "bitfield",
     "buffer"
