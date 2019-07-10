@@ -1,7 +1,7 @@
 {
   "name": "bitfield",
   "description": "a very simple bitfield implementation using buffers",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "author": "Felix Boehm <me@feedic.com>",
   "bugs": {
     "url": "https://github.com/fb55/bitfield/issues"
