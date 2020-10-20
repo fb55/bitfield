@@ -53,7 +53,7 @@
         "format:es": "npm run lint:es -- --fix",
         "format:prettier": "npm run prettier -- --write",
         "prettier": "prettier '**/*.{js,ts,md,json,yml}'",
-        "build": "tsc && cp -r src/maps lib",
+        "build": "tsc",
         "prepare": "npm run build"
     },
     "jest": {
