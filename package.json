@@ -7,7 +7,7 @@
     "url": "https://github.com/fb55/bitfield/issues"
   },
   "devDependencies": {
-    "standard": "^14.0.0",
+    "standard": "^15.0.0",
     "tape": "^5.0.1"
   },
   "engines": {
