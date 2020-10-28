@@ -47,10 +47,10 @@ field.buffer; // The buffer used by the bitfield.
 
 #### Parameters:
 
-| Name    | Type                 | Default value | Description                                                                          |
-| ------- | -------------------- | ------------- | ------------------------------------------------------------------------------------ |
-| `data`  | number \| Uint8Array | 0             | Either a number representing the maximum number of supported bytes, or an Int8Array. |
-| `opts?` | BitFieldOptions      | -             | Options for the bitfield.                                                            |
+| Name    | Type                 | Default value | Description                                                                                                                                                                                                                                                       |
+| ------- | -------------------- | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `data`  | number \| Uint8Array | 0             | Either a number representing the maximum number of supported bytes, or an Int8Array.                                                                                                                                                                              |
+| `opts?` | { grow: number }     | { grow: 0 }   | <p>**grow:**<p>If you `set` an index that is out-of-bounds, the bitfield will automatically grow so that the bitfield is big enough to contain the given index, up to the given size (in bit). <p>If you want the Bitfield to grow indefinitely, pass `Infinity`. |
 
 **Returns:** `BitField`
 
