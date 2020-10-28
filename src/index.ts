@@ -79,4 +79,26 @@ export default class BitField {
             this.buffer[j] &= ~(128 >> i % 8);
         }
     }
+
+    /**
+     * Loop through the bits in the bitfield.
+     *
+     * @param fn Function to be called with the bit value and index.
+     * @param start Index of the first bit to look at.
+     * @param end Index of the first bit that should no longer be considered.
+     */
+    forEach(
+        fn: (bit: boolean, index: number) => void,
+        start = 0,
+        end = this.buffer.length * 8
+    ): void {
+        for (let i = start, j = i >> 3, bit = 128 >> i % 8; i < end; i++) {
+            fn(!!(this.buffer[j] & bit), i);
+
+            if (bit === 1) {
+                bit = 128;
+                j += 1;
+            } else bit >>= 1;
+        }
+    }
 }
