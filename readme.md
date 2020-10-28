@@ -23,21 +23,99 @@ field.set(128, false); // Set the 128th bit to 0 again.
 field.buffer; // The buffer used by the bitfield.
 ```
 
-#### Methods
+## Class: BitField
 
-`Bitfield(data)`: `data` can be either a node.js buffer, WebGL Int8Array or numeric array, or a number representing the maximum number of supported bytes.
+### Constructors
 
-`Bitfield#get(index)`: Returns a boolean indicating whether the bit is set.
+-   [constructor](#constructor)
 
-`Bitfield#set(index[, value])`: `value` defaults to true. Sets the bit to `1` for a value of `true` or `0` for `false`.
+### Properties
 
-##### Auto-grow mode
+-   [buffer](#buffer)
 
-`Bitfield(data, { grow: size })`: If you `set` an index that is out-of-bounds, the Bitfield will automatically grow so that the bitfield is big enough to contain the given index, up to the given `size` (in bit). If you want the Bitfield to grow indefinitely, pass `Infinity` as the size.
+### Methods
 
-#### Properties
+-   [forEach](#foreach)
+-   [get](#get)
+-   [set](#set)
 
-`Bitfield#buffer`: The contents of the bitfield.
+## Constructors
+
+### constructor
+
+\+ **new BitField**(`data?`: number \| Uint8Array, `opts?`: BitFieldOptions): `BitField`
+
+#### Parameters:
+
+| Name    | Type                 | Default value | Description                                                                          |
+| ------- | -------------------- | ------------- | ------------------------------------------------------------------------------------ |
+| `data`  | number \| Uint8Array | 0             | Either a number representing the maximum number of supported bytes, or an Int8Array. |
+| `opts?` | BitFieldOptions      | -             | Options for the bitfield.                                                            |
+
+**Returns:** `BitField`
+
+## Properties
+
+### buffer
+
+• **buffer**: Uint8Array
+
+The internal storage of the bitfield.
+
+## Methods
+
+### forEach
+
+▸ **forEach**(`fn`: (bit: boolean, index: number) => void, `start?`: number, `end?`: number): void
+
+Loop through the bits in the bitfield.
+
+#### Parameters:
+
+| Name    | Type                                  | Default value           | Description                                                 |
+| ------- | ------------------------------------- | ----------------------- | ----------------------------------------------------------- |
+| `fn`    | (bit: boolean, index: number) => void | -                       | Function to be called with the bit value and index.         |
+| `start` | number                                | 0                       | Index of the first bit to look at.                          |
+| `end`   | number                                | this.buffer.length \* 8 | Index of the first bit that should no longer be considered. |
+
+**Returns:** void
+
+---
+
+### get
+
+▸ **get**(`i`: number): boolean
+
+Get a particular bit.
+
+#### Parameters:
+
+| Name | Type   | Description            |
+| ---- | ------ | ---------------------- |
+| `i`  | number | Bit index to retrieve. |
+
+**Returns:** boolean
+
+A boolean indicating whether the `i`th bit is set.
+
+---
+
+### set
+
+▸ **set**(`i`: number, `value?`: boolean): void
+
+Set a particular bit.
+
+Will grow the underlying array if the bit is out of bounds and the `grow` option is set.
+
+#### Parameters:
+
+| Name    | Type    | Default value | Description                                  |
+| ------- | ------- | ------------- | -------------------------------------------- |
+| `i`     | number  | -             | Bit index to set.                            |
+| `value` | boolean | true          | Value to set the bit to. Defaults to `true`. |
+
+**Returns:** void
 
 ## License
 
