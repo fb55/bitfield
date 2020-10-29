@@ -92,13 +92,14 @@ export default class BitField {
         start = 0,
         end = this.buffer.length * 8
     ): void {
-        for (let i = start, j = i >> 3, bit = 128 >> i % 8; i < end; i++) {
-            fn(!!(this.buffer[j] & bit), i);
+        for (
+            let i = start, j = i >> 3, y = 128 >> i % 8, byte = this.buffer[j];
+            i < end;
+            i++
+        ) {
+            fn(!!(byte & y), i);
 
-            if (bit === 1) {
-                bit = 128;
-                j += 1;
-            } else bit >>= 1;
+            y = y === 1 ? ((byte = this.buffer[++j]), 128) : y >> 1;
         }
     }
 }
