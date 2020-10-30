@@ -152,4 +152,46 @@ describe("Bitfield", () => {
         expect(new BitField(16).buffer).toHaveLength(2);
         expect(new BitField(17).buffer).toHaveLength(3);
     });
+
+    it("should loop through all values", () => {
+        const field = new BitField(data.length);
+
+        for (let i = 0; i < data.length; i++) {
+            field.set(i, data[i]);
+        }
+
+        const values: boolean[] = [];
+
+        field.forEach((bit, index) => {
+            expect(index).toBe(values.length);
+            expect(field.get(index)).toBe(bit);
+            values.push(bit);
+        });
+
+        expect(values).toStrictEqual(
+            // Data has 15 entries, append a `false` to make it match.
+            [...data, false]
+        );
+    });
+
+    it("should loop through some of the values", () => {
+        const field = new BitField(data.length);
+
+        for (let i = 0; i < data.length; i++) {
+            field.set(i, data[i]);
+        }
+
+        const values: boolean[] = [];
+
+        field.forEach(
+            (bit, index) => {
+                expect(field.get(index)).toBe(bit);
+                values.push(bit);
+            },
+            3,
+            11
+        );
+
+        expect(values).toStrictEqual(data.slice(3, 11));
+    });
 });
