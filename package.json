@@ -3,7 +3,9 @@
     "description": "a simple bitfield, compliant with the BitTorrent spec",
     "version": "3.0.0",
     "author": "Felix Boehm <me@feedic.com>",
-    "funding": "https://github.com/sponsors/fb55",
+    "funding": {
+        "url": "https://github.com/sponsors/fb55"
+    },
     "sideEffects": false,
     "main": "lib/index.js",
     "types": "lib/index.d.ts",
