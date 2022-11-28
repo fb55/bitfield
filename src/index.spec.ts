@@ -1,4 +1,4 @@
-import BitField from "./";
+import BitField from "./index.js";
 
 const data = "011011100110111".split("").map(Number).map(Boolean);
 
