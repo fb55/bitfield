@@ -47,7 +47,7 @@ export default class BitField {
      */
     get(i: number): boolean {
         const j = i >> 3;
-        return j < this.buffer.length && !!(this.buffer[j] & (128 >> i % 8));
+        return !!(this.buffer[j] & (128 >> i % 8));
     }
 
     /**
@@ -58,27 +58,15 @@ export default class BitField {
      * @param i Bit index to set.
      * @param value Value to set the bit to. Defaults to `true`.
      */
-    set(i: number, value = true): void {
+     set(i: number, value = true): void {
         const j = i >> 3;
         if (value) {
-            if (this.buffer.length < j + 1) {
-                const length = Math.max(
-                    j + 1,
-                    Math.min(2 * this.buffer.length, this.grow)
-                );
-                if (length <= this.grow) {
-                    const newBuffer = new Uint8Array(length);
-                    newBuffer.set(this.buffer);
-                    this.buffer = newBuffer;
-                }
-            }
-            // Set
             this.buffer[j] |= 128 >> i % 8;
-        } else if (j < this.buffer.length) {
-            // Clear
+        } else {
             this.buffer[j] &= ~(128 >> i % 8);
         }
     }
+    
 
     /**
      * Loop through the bits in the bitfield.
@@ -87,18 +75,22 @@ export default class BitField {
      * @param start Index of the first bit to look at.
      * @param end Index of the first bit that should no longer be considered.
      */
-    forEach(
+     forEach(
         fn: (bit: boolean, index: number) => void,
         start = 0,
         end = this.buffer.length * 8
     ): void {
-        for (
-            let i = start, j = i >> 3, y = 128 >> i % 8, byte = this.buffer[j];
-            i < end;
-            i++
-        ) {
+        // Calculate the initial value of y outside of the loop
+        let y = 128 >> start % 8;
+    
+        // Initialize j and byte outside of the loop
+        let j = start >> 3;
+        let byte = this.buffer[j];
+    
+        for (let i = start; i < end; i++) {
             fn(!!(byte & y), i);
-
+    
+            // Update y and byte at each iteration of the loop
             y = y === 1 ? ((byte = this.buffer[++j]), 128) : y >> 1;
         }
     }
