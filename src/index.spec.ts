@@ -194,4 +194,22 @@ describe("Bitfield", () => {
 
         expect(values).toStrictEqual(data.slice(3, 11));
     });
+    it("should grow the buffer only if the new length is less than or equal to the grow option", () => {
+        const bitfield = new BitField(8, { grow: 10 });
+    
+        bitfield.set(8);
+        expect(bitfield.buffer.length).toBe(2);
+    
+        bitfield.set(12);
+        expect(bitfield.buffer.length).toBe(2);
+    
+        bitfield.set(16);
+        expect(bitfield.buffer.length).toBe(4);
+    
+        bitfield.set(20);
+        expect(bitfield.buffer.length).toBe(5);
+    
+        bitfield.set(24);
+        expect(bitfield.buffer.length).toBe(6);
+    });    
 });
