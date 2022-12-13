@@ -211,5 +211,22 @@ describe("Bitfield", () => {
     
         bitfield.set(24);
         expect(bitfield.buffer.length).toBe(6);
-    });    
+    });
+    it("should set the bit only if the value is true and the index is within bounds", () => {
+        const bitfield = new BitField(8);
+    
+        bitfield.set(8, false);
+        expect(bitfield.get(8)).toBe(false);
+    
+        bitfield.set(8, true);
+        expect(bitfield.get(8)).toBe(true);
+    
+        bitfield.set(12, true);
+        expect(bitfield.get(12)).toBe(false);
+    
+        bitfield = new BitField(8, { grow: Infinity });
+        bitfield.set(12, true);
+        expect(bitfield.get(12)).toBe(true);
+    });
+        
 });
