@@ -60,25 +60,28 @@ export default class BitField {
      */
     set(i: number, value = true): void {
         const j = i >> 3;
-        if (value) {
-            if (this.buffer.length < j + 1) {
-                const length = Math.max(
-                    j + 1,
-                    Math.min(2 * this.buffer.length, this.grow)
-                );
-                if (length <= this.grow) {
-                    const newBuffer = new Uint8Array(length);
-                    newBuffer.set(this.buffer);
-                    this.buffer = newBuffer;
-                }
+    
+        // Check if the buffer should be grown
+        if (this.grow && j + 1 > this.buffer.length) {
+            const length = Math.max(
+                j + 1,
+                Math.min(2 * this.buffer.length, this.grow)
+            );
+    
+            // Grow the buffer only if the new length is less than or equal to the grow option
+            if (length <= this.grow) {
+                const newBuffer = new Uint8Array(length);
+                newBuffer.set(this.buffer);
+                this.buffer = newBuffer;
             }
-            // Set
+        }
+    
+        // Set the bit only if the value is true and the index is within bounds
+        if (value && j < this.buffer.length) {
             this.buffer[j] |= 128 >> i % 8;
-        } else if (j < this.buffer.length) {
-            // Clear
-            this.buffer[j] &= ~(128 >> i % 8);
         }
     }
+    
 
     /**
      * Loop through the bits in the bitfield.
