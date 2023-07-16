@@ -131,7 +131,7 @@ describe("Bitfield", () => {
                     growField.set(index, true);
                     // Should have grown for set()
                     expect(growField.buffer.length).toBeGreaterThanOrEqual(
-                        Math.ceil((index + 1) / 8)
+                        Math.ceil((index + 1) / 8),
                     ),
                         expect(growField.get(index)).toBe(true);
                 }
@@ -146,7 +146,7 @@ describe("Bitfield", () => {
                     if (index <= 55) {
                         // Should have grown for set()
                         expect(
-                            smallGrowField.buffer.length
+                            smallGrowField.buffer.length,
                         ).toBeGreaterThanOrEqual((index >> 3) + 1);
                         expect(smallGrowField.get(index)).toBe(true);
                     } else {
@@ -177,7 +177,7 @@ describe("Bitfield", () => {
 
             for (let index = 0; index < data.length; index++) {
                 expect(field.get(index)).toBe(
-                    index < 3 ? false : data[index - 3]
+                    index < 3 ? false : data[index - 3],
                 );
             }
 
@@ -193,7 +193,7 @@ describe("Bitfield", () => {
 
             for (let index = 0; index < data.length + 3; index++) {
                 expect(field.get(index)).toBe(
-                    index < 3 ? false : data[index - 3]
+                    index < 3 ? false : data[index - 3],
                 );
             }
 
@@ -218,7 +218,7 @@ describe("Bitfield", () => {
 
             expect(values).toStrictEqual(
                 // Data has 15 entries, append a `false` to make it match.
-                [...data, false]
+                [...data, false],
             );
         });
 
@@ -234,7 +234,7 @@ describe("Bitfield", () => {
                     values.push(bit);
                 },
                 3,
-                11
+                11,
             );
 
             expect(values).toStrictEqual(data.slice(3, 11));

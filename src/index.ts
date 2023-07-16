@@ -79,7 +79,7 @@ export default class BitField {
             if (this.buffer.length < byteIndex + 1) {
                 const length = Math.max(
                     byteIndex + 1,
-                    Math.min(2 * this.buffer.length, this.grow)
+                    Math.min(2 * this.buffer.length, this.grow),
                 );
                 if (length <= this.grow) {
                     const newBuffer = new Uint8Array(length);
@@ -104,7 +104,7 @@ export default class BitField {
     setAll(array: ArrayLike<boolean>, offset = 0): void {
         const targetLength = Math.min(
             bitsToBytes(offset + array.length),
-            this.grow
+            this.grow,
         );
 
         if (this.buffer.length < targetLength) {
@@ -146,7 +146,7 @@ export default class BitField {
     forEach(
         callbackfn: (bit: boolean, index: number) => void,
         start = 0,
-        end = this.buffer.length * 8
+        end = this.buffer.length * 8,
     ): void {
         let byteIndex = start >> 3;
         let bitMask = 0b1000_0000 >> start % 8;
