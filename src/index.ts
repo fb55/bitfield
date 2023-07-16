@@ -64,7 +64,7 @@ export default class BitField {
             if (this.buffer.length < j + 1) {
                 const length = Math.max(
                     j + 1,
-                    Math.min(2 * this.buffer.length, this.grow)
+                    Math.min(2 * this.buffer.length, this.grow),
                 );
                 if (length <= this.grow) {
                     const newBuffer = new Uint8Array(length);
@@ -90,7 +90,7 @@ export default class BitField {
     forEach(
         fn: (bit: boolean, index: number) => void,
         start = 0,
-        end = this.buffer.length * 8
+        end = this.buffer.length * 8,
     ): void {
         for (
             let i = start, j = i >> 3, y = 128 >> i % 8, byte = this.buffer[j];
