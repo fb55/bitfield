@@ -34,7 +34,7 @@ export default class BitField {
      */
     constructor(data: number | Uint8Array = 0, opts?: BitFieldOptions) {
         const grow = opts?.grow;
-        this.grow = (grow && isFinite(grow) && getByteSize(grow)) || grow || 0;
+        this.grow = grow ? (isFinite(grow) ? getByteSize(grow) : grow) : 0;
         this.buffer =
             typeof data === "number" ? new Uint8Array(getByteSize(data)) : data;
     }
