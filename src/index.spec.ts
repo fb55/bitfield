@@ -67,7 +67,7 @@ describe("Bitfield", () => {
             growField.set(index, true);
             // Should have grown for set()
             expect(growField.buffer.length).toBeGreaterThanOrEqual(
-                Math.ceil((index + 1) / 8)
+                Math.ceil((index + 1) / 8),
             ),
                 expect(growField.get(index)).toBe(true);
         }
@@ -82,7 +82,7 @@ describe("Bitfield", () => {
             if (i <= 55) {
                 // Should have grown for set()
                 expect(smallGrowField.buffer.length).toBeGreaterThanOrEqual(
-                    (i >> 3) + 1
+                    (i >> 3) + 1,
                 );
                 expect(smallGrowField.get(i)).toBe(true);
             } else {
@@ -170,7 +170,7 @@ describe("Bitfield", () => {
 
         expect(values).toStrictEqual(
             // Data has 15 entries, append a `false` to make it match.
-            [...data, false]
+            [...data, false],
         );
     });
 
@@ -189,7 +189,7 @@ describe("Bitfield", () => {
                 values.push(bit);
             },
             3,
-            11
+            11,
         );
 
         expect(values).toStrictEqual(data.slice(3, 11));
