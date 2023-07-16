@@ -146,7 +146,7 @@ export default class BitField {
     forEach(
         callbackfn: (bit: boolean, index: number) => void,
         start = 0,
-        end = this.buffer.length * 8,
+        end = this.buffer.length >> 3,
     ): void {
         let byteIndex = start >> 3;
         let bitMask = 0b1000_0000 >> start % 8;
