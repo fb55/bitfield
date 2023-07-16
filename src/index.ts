@@ -5,7 +5,7 @@
  * @returns The number of bytes that are needed to store the given number of bits.
  */
 function bitsToBytes(numberOfBits: number): number {
-    return numberOfBits * 8 + Number(numberOfBits % 8 !== 0);
+    return (numberOfBits >> 3) + Number(numberOfBits % 8 !== 0);
 }
 
 interface BitFieldOptions {
@@ -31,7 +31,7 @@ export default class BitField {
     public buffer: Uint8Array;
     /** The number of bits in the bitfield. */
     get length(): number {
-        return this.buffer.length * 8;
+        return this.buffer.length >> 3;
     }
 
     /**
@@ -58,7 +58,7 @@ export default class BitField {
      * @returns A boolean indicating whether the `i`th bit is set.
      */
     get(bitIndex: number): boolean {
-        const byteIndex = bitIndex * 8;
+        const byteIndex = bitIndex >> 3;
         return (
             byteIndex < this.buffer.length &&
             !!(this.buffer[byteIndex] & (0b1000_0000 >> bitIndex % 8))
@@ -74,7 +74,7 @@ export default class BitField {
      * @param value Value to set the bit to. Defaults to `true`.
      */
     set(bitIndex: number, value = true): void {
-        const byteIndex = bitIndex * 8;
+        const byteIndex = bitIndex >> 3;
         if (value) {
             if (this.buffer.length < byteIndex + 1) {
                 const length = Math.max(
@@ -113,7 +113,7 @@ export default class BitField {
             this.buffer = newBuffer;
         }
 
-        let byteIndex = offset * 8;
+        let byteIndex = offset >> 3;
         let bitMask = 0b1000_0000 >> offset % 8;
         for (let index = 0; index < array.length; index++) {
             if (array[index]) {
@@ -148,7 +148,7 @@ export default class BitField {
         start = 0,
         end = this.buffer.length * 8,
     ): void {
-        let byteIndex = start * 8;
+        let byteIndex = start >> 3;
         let bitMask = 0b1000_0000 >> start % 8;
 
         for (let bitIndex = start; bitIndex < end; bitIndex++) {
