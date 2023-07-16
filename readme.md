@@ -117,6 +117,23 @@ Will grow the underlying array if the bit is out of bounds and the `grow` option
 
 **Returns:** void
 
+---
+
+### setAll
+
+▸ **setAll**(`array`: `ArrayLike<boolean>`, `offset?`: number): void
+
+Set the bits in the bitfield to the values in the given array.
+
+#### Parameters:
+
+| Name     | Type                 | Default value | Description                           |
+| -------- | -------------------- | ------------- | ------------------------------------- |
+| `array`  | `ArrayLike<boolean>` | -             | Array of booleans to set the bits to. |
+| `offset` | number               | 0             | Index of the first bit to set.        |
+
+**Returns:** void
+
 ## License
 
 MIT
