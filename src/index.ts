@@ -162,4 +162,18 @@ export default class BitField {
             }
         }
     }
+
+    /**
+     * Check if all bits in the Bitfield are unset.
+     *
+     * @returns A boolean indicating whether all bits are unset.
+     */
+    isEmpty(): boolean {
+        for (let i = 0; i < this.buffer.length; i++) {
+            if (this.buffer[i] !== 0) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
