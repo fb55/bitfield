@@ -75,7 +75,12 @@ export default class BitField {
      */
     set(bitIndex: number, value = true): void {
         const byteIndex = bitIndex >> 3;
+        const bitWasSet = this.get(bitIndex);
+
         if (value) {
+            if (!bitWasSet) {
+                this.setBitCount++;
+            }
             if (this.buffer.length < byteIndex + 1) {
                 const length = Math.max(
                     byteIndex + 1,
@@ -90,6 +95,9 @@ export default class BitField {
             // Set
             this.buffer[byteIndex] |= 0b1000_0000 >> bitIndex % 8;
         } else if (byteIndex < this.buffer.length) {
+            if (bitWasSet) {
+                this.setBitCount--;
+            }
             // Clear
             this.buffer[byteIndex] &= ~(0b1000_0000 >> bitIndex % 8);
         }
@@ -116,6 +124,15 @@ export default class BitField {
         let byteIndex = offset >> 3;
         let bitMask = 0b1000_0000 >> offset % 8;
         for (let index = 0; index < array.length; index++) {
+            const bitIndex = offset + index;
+            const bitWasSet = this.get(bitIndex);
+            const bitValue = array[index];
+
+            if (bitValue && !bitWasSet) {
+                this.setBitCount++;
+            } else if (!bitValue && bitWasSet) {
+                this.setBitCount--;
+            }
             if (array[index]) {
                 this.buffer[byteIndex] |= bitMask;
             } else {
@@ -175,5 +192,17 @@ export default class BitField {
             }
         }
         return true;
+    }
+
+    /** Variable to store the count of bits set to 1 */
+    private setBitCount: number = 0;
+
+    /**
+     * Get the count of bits set to 1.
+     *
+     * @returns The number of bits set to 1.
+     */
+    getSetBitCount(): number {
+        return this.setBitCount;
     }
 }

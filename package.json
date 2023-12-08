@@ -1,7 +1,7 @@
 {
     "name": "bitfield",
     "description": "a simple bitfield, compliant with the BitTorrent spec",
-    "version": "4.1.1",
+    "version": "4.2.0",
     "author": "Felix Boehm <me@feedic.com>",
     "funding": {
         "url": "https://github.com/sponsors/fb55"

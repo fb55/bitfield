@@ -260,4 +260,47 @@ describe("Bitfield", () => {
             expect(field.isEmpty()).toBe(true);
         });
     });
+
+    describe("`BitField` bit count", () => {
+        it("should correctly count the number of set bits", () => {
+            const field = new BitField(16); // A BitField with 16 bits
+            field.set(3); // Set the 4th bit
+            field.set(7); // Set the 8th bit
+
+            expect(field.getSetBitCount()).toBe(2);
+        });
+
+        it("should decrease count when bits are cleared", () => {
+            const field = new BitField(16);
+            field.set(2);
+            field.set(4);
+            field.set(2, false); // Clear the 3rd bit
+
+            expect(field.getSetBitCount()).toBe(1);
+        });
+
+        it("should handle setting multiple bits with `setAll`", () => {
+            const field = new BitField(16);
+            const data = [true, false, true, true]; // Array of bit values
+            field.setAll(data); // Set multiple bits at once
+
+            expect(field.getSetBitCount()).toBe(3); // 3 bits are set to true
+        });
+
+        it("should handle setting and clearing bits with `setAll`", () => {
+            const field = new BitField(16);
+            field.set(1);
+            field.set(3);
+            const data = [true, false, false, true]; // Array of bit values
+            field.setAll(data, 2); // Start setting from the 3rd bit
+
+            expect(field.getSetBitCount()).toBe(3); // 3 bits are set to true
+        });
+
+        it("should correctly count bits when the bitfield is empty", () => {
+            const field = new BitField(16);
+
+            expect(field.getSetBitCount()).toBe(0); // No bits are set
+        });
+    });
 });
