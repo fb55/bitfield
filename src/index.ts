@@ -27,15 +27,23 @@ export default class BitField {
      * @default 0.
      */
     private readonly grow: number;
+
     /** The internal storage of the bitfield. */
     public buffer: Uint8Array;
+
     /** The number of bits in the bitfield. */
     get length(): number {
-        return this.buffer.length >> 3;
+        return this.buffer.length << 3;
     }
 
+    /** Variable to store the count of bits set to 1 */
+    private setBitCount: number = 0;
+
+    /** Set to keep track of indices of set bits */
+    private readonly setBits: Set<number> = new Set();
+
     /**
-     *
+     * Constructs a BitField.
      *
      * @param data Either a number representing the maximum number of supported bytes, or a Uint8Array.
      * @param opts Options for the bitfield.
@@ -49,6 +57,19 @@ export default class BitField {
             : 0;
         this.buffer =
             typeof data === "number" ? new Uint8Array(bitsToBytes(data)) : data;
+        this.initializeSetBits();
+    }
+
+    /**
+     * Initialize the set bits based on current buffer data.
+     */
+    private initializeSetBits(): void {
+        for (let i = 0; i < this.length; i++) {
+            if (this.get(i)) {
+                this.setBits.add(i);
+                this.setBitCount++;
+            }
+        }
     }
 
     /**
@@ -80,27 +101,36 @@ export default class BitField {
         if (value) {
             if (!bitWasSet) {
                 this.setBitCount++;
+                this.setBits.add(bitIndex);
             }
-            if (this.buffer.length < byteIndex + 1) {
-                const length = Math.max(
+            if (byteIndex >= this.buffer.length) {
+                const newLength = Math.max(
                     byteIndex + 1,
                     Math.min(2 * this.buffer.length, this.grow),
                 );
-                if (length <= this.grow) {
-                    const newBuffer = new Uint8Array(length);
+                if (newLength <= this.grow) {
+                    const newBuffer = new Uint8Array(newLength);
                     newBuffer.set(this.buffer);
                     this.buffer = newBuffer;
                 }
             }
-            // Set
             this.buffer[byteIndex] |= 0b1000_0000 >> bitIndex % 8;
         } else if (byteIndex < this.buffer.length) {
             if (bitWasSet) {
                 this.setBitCount--;
+                this.setBits.delete(bitIndex);
             }
-            // Clear
             this.buffer[byteIndex] &= ~(0b1000_0000 >> bitIndex % 8);
         }
+    }
+
+    /**
+     * Get all indices of bits that are set.
+     *
+     * @returns An array of indices where bits are set.
+     */
+    getAllSetIndices(): number[] {
+        return Array.from(this.setBits);
     }
 
     /**
@@ -193,9 +223,6 @@ export default class BitField {
         }
         return true;
     }
-
-    /** Variable to store the count of bits set to 1 */
-    private setBitCount: number = 0;
 
     /**
      * Get the count of bits set to 1.

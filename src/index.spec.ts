@@ -303,4 +303,35 @@ describe("Bitfield", () => {
             expect(field.getSetBitCount()).toBe(0); // No bits are set
         });
     });
+
+    describe("`getAllSetIndices`", () => {
+        it("should return all indices of set bits", () => {
+            const field = new BitField(data.length);
+            data.forEach((bit, index) => {
+                if (bit) field.set(index);
+            });
+
+            const setIndices = field.getAllSetIndices();
+            const expectedIndices = data
+                .map((bit, index) => (bit ? index : -1))
+                .filter((index) => index !== -1);
+
+            expect(setIndices).toEqual(expectedIndices);
+        });
+
+        it("should return an empty array for a new BitField", () => {
+            const field = new BitField(data.length);
+            expect(field.getAllSetIndices()).toEqual([]);
+        });
+
+        it("should update correctly when bits are cleared", () => {
+            const field = new BitField(data.length);
+            field.set(2);
+            field.set(4);
+            field.set(2, false); // Clear the 3rd bit
+
+            const setIndices = field.getAllSetIndices();
+            expect(setIndices).toEqual([4]);
+        });
+    });
 });
