@@ -37,7 +37,7 @@ export default class BitField {
     /**
      *
      *
-     * @param data Either a number representing the maximum number of supported bytes, or a Uint8Array.
+     * @param data Either a number representing the maximum number of supported bits, or a Uint8Array.
      * @param opts Options for the bitfield.
      */
     constructor(data: number | Uint8Array = 0, options?: BitFieldOptions) {
