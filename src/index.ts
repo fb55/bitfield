@@ -27,15 +27,17 @@ export default class BitField {
      * @default 0.
      */
     private readonly grow: number;
+
     /** The internal storage of the bitfield. */
     public buffer: Uint8Array;
+
     /** The number of bits in the bitfield. */
     get length(): number {
-        return this.buffer.length >> 3;
+        return this.buffer.length << 3;
     }
 
     /**
-     *
+     * Constructs a BitField.
      *
      * @param data Either a number representing the maximum number of supported bits, or a Uint8Array.
      * @param opts Options for the bitfield.
@@ -75,22 +77,21 @@ export default class BitField {
      */
     set(bitIndex: number, value = true): void {
         const byteIndex = bitIndex >> 3;
+
         if (value) {
-            if (this.buffer.length < byteIndex + 1) {
-                const length = Math.max(
+            if (byteIndex >= this.buffer.length) {
+                const newLength = Math.max(
                     byteIndex + 1,
                     Math.min(2 * this.buffer.length, this.grow),
                 );
-                if (length <= this.grow) {
-                    const newBuffer = new Uint8Array(length);
+                if (newLength <= this.grow) {
+                    const newBuffer = new Uint8Array(newLength);
                     newBuffer.set(this.buffer);
                     this.buffer = newBuffer;
                 }
             }
-            // Set
             this.buffer[byteIndex] |= 0b1000_0000 >> bitIndex % 8;
         } else if (byteIndex < this.buffer.length) {
-            // Clear
             this.buffer[byteIndex] &= ~(0b1000_0000 >> bitIndex % 8);
         }
     }
@@ -161,5 +162,19 @@ export default class BitField {
                 bitMask >>= 1;
             }
         }
+    }
+
+    /**
+     * Check if all bits in the Bitfield are unset.
+     *
+     * @returns A boolean indicating whether all bits are unset.
+     */
+    isEmpty(): boolean {
+        for (let i = 0; i < this.buffer.length; i++) {
+            if (this.buffer[i] !== 0) {
+                return false;
+            }
+        }
+        return true;
     }
 }

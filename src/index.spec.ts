@@ -27,6 +27,7 @@ describe("Bitfield", () => {
 
         it("correct size bitfield", () => {
             expect(new BitField(1).buffer).toHaveLength(1);
+            expect(new BitField(1)).toHaveLength(8);
             expect(new BitField(2).buffer).toHaveLength(1);
             expect(new BitField(3).buffer).toHaveLength(1);
             expect(new BitField(4).buffer).toHaveLength(1);
@@ -43,6 +44,7 @@ describe("Bitfield", () => {
             expect(new BitField(15).buffer).toHaveLength(2);
             expect(new BitField(16).buffer).toHaveLength(2);
             expect(new BitField(17).buffer).toHaveLength(3);
+            expect(new BitField(17)).toHaveLength(24);
         });
     });
 
@@ -238,6 +240,26 @@ describe("Bitfield", () => {
             );
 
             expect(values).toStrictEqual(data.slice(3, 11));
+        });
+    });
+
+    describe("`isEmpty`", () => {
+        it("should return true for an empty BitField", () => {
+            const field = new BitField(10); // Assuming this creates a BitField with 10 bits, all unset
+            expect(field.isEmpty()).toBe(true);
+        });
+
+        it("should return false for a BitField with at least one bit set", () => {
+            const field = new BitField(10);
+            field.set(5); // Set the 6th bit
+            expect(field.isEmpty()).toBe(false);
+        });
+
+        it("should return true for a BitField with all bits unset after some were set", () => {
+            const field = new BitField(10);
+            field.set(3);
+            field.set(3, false); // Unset the 4th bit
+            expect(field.isEmpty()).toBe(true);
         });
     });
 });
