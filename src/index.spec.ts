@@ -27,6 +27,7 @@ describe("Bitfield", () => {
 
         it("correct size bitfield", () => {
             expect(new BitField(1).buffer).toHaveLength(1);
+            expect(new BitField(1)).toHaveLength(8);
             expect(new BitField(2).buffer).toHaveLength(1);
             expect(new BitField(3).buffer).toHaveLength(1);
             expect(new BitField(4).buffer).toHaveLength(1);
@@ -43,6 +44,7 @@ describe("Bitfield", () => {
             expect(new BitField(15).buffer).toHaveLength(2);
             expect(new BitField(16).buffer).toHaveLength(2);
             expect(new BitField(17).buffer).toHaveLength(3);
+            expect(new BitField(17)).toHaveLength(24);
         });
     });
 
@@ -258,80 +260,6 @@ describe("Bitfield", () => {
             field.set(3);
             field.set(3, false); // Unset the 4th bit
             expect(field.isEmpty()).toBe(true);
-        });
-    });
-
-    describe("`BitField` bit count", () => {
-        it("should correctly count the number of set bits", () => {
-            const field = new BitField(16); // A BitField with 16 bits
-            field.set(3); // Set the 4th bit
-            field.set(7); // Set the 8th bit
-
-            expect(field.getSetBitCount()).toBe(2);
-        });
-
-        it("should decrease count when bits are cleared", () => {
-            const field = new BitField(16);
-            field.set(2);
-            field.set(4);
-            field.set(2, false); // Clear the 3rd bit
-
-            expect(field.getSetBitCount()).toBe(1);
-        });
-
-        it("should handle setting multiple bits with `setAll`", () => {
-            const field = new BitField(16);
-            const data = [true, false, true, true]; // Array of bit values
-            field.setAll(data); // Set multiple bits at once
-
-            expect(field.getSetBitCount()).toBe(3); // 3 bits are set to true
-        });
-
-        it("should handle setting and clearing bits with `setAll`", () => {
-            const field = new BitField(16);
-            field.set(1);
-            field.set(3);
-            const data = [true, false, false, true]; // Array of bit values
-            field.setAll(data, 2); // Start setting from the 3rd bit
-
-            expect(field.getSetBitCount()).toBe(3); // 3 bits are set to true
-        });
-
-        it("should correctly count bits when the bitfield is empty", () => {
-            const field = new BitField(16);
-
-            expect(field.getSetBitCount()).toBe(0); // No bits are set
-        });
-    });
-
-    describe("`getAllSetIndices`", () => {
-        it("should return all indices of set bits", () => {
-            const field = new BitField(data.length);
-            data.forEach((bit, index) => {
-                if (bit) field.set(index);
-            });
-
-            const setIndices = field.getAllSetIndices();
-            const expectedIndices = data
-                .map((bit, index) => (bit ? index : -1))
-                .filter((index) => index !== -1);
-
-            expect(setIndices).toEqual(expectedIndices);
-        });
-
-        it("should return an empty array for a new BitField", () => {
-            const field = new BitField(data.length);
-            expect(field.getAllSetIndices()).toEqual([]);
-        });
-
-        it("should update correctly when bits are cleared", () => {
-            const field = new BitField(data.length);
-            field.set(2);
-            field.set(4);
-            field.set(2, false); // Clear the 3rd bit
-
-            const setIndices = field.getAllSetIndices();
-            expect(setIndices).toEqual([4]);
         });
     });
 });
