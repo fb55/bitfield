@@ -134,8 +134,8 @@ describe("Bitfield", () => {
                     // Should have grown for set()
                     expect(growField.buffer.length).toBeGreaterThanOrEqual(
                         Math.ceil((index + 1) / 8),
-                    ),
-                        expect(growField.get(index)).toBe(true);
+                    );
+                    expect(growField.get(index)).toBe(true);
                 }
             });
 
