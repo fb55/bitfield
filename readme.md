@@ -27,17 +27,17 @@ field.buffer; // The buffer used by the bitfield.
 
 ### Constructors
 
--   [constructor](#constructor)
+- [constructor](#constructor)
 
 ### Properties
 
--   [buffer](#buffer)
+- [buffer](#buffer)
 
 ### Methods
 
--   [forEach](#foreach)
--   [get](#get)
--   [set](#set)
+- [forEach](#foreach)
+- [get](#get)
+- [set](#set)
 
 ## Constructors
 
