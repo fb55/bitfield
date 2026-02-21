@@ -63,7 +63,7 @@ export default class BitField {
         const byteIndex = bitIndex >> 3;
         return (
             byteIndex < this.buffer.length &&
-            !!(this.buffer[byteIndex] & (0b1000_0000 >> bitIndex % 8))
+            !!(this.buffer[byteIndex] & (0b1000_0000 >> (bitIndex % 8)))
         );
     }
 
@@ -90,9 +90,9 @@ export default class BitField {
                     this.buffer = newBuffer;
                 }
             }
-            this.buffer[byteIndex] |= 0b1000_0000 >> bitIndex % 8;
+            this.buffer[byteIndex] |= 0b1000_0000 >> (bitIndex % 8);
         } else if (byteIndex < this.buffer.length) {
-            this.buffer[byteIndex] &= ~(0b1000_0000 >> bitIndex % 8);
+            this.buffer[byteIndex] &= ~(0b1000_0000 >> (bitIndex % 8));
         }
     }
 
@@ -115,9 +115,9 @@ export default class BitField {
         }
 
         let byteIndex = offset >> 3;
-        let bitMask = 0b1000_0000 >> offset % 8;
-        for (let index = 0; index < array.length; index++) {
-            if (array[index]) {
+        let bitMask = 0b1000_0000 >> (offset % 8);
+        for (const element of array) {
+            if (element) {
                 this.buffer[byteIndex] |= bitMask;
             } else {
                 this.buffer[byteIndex] &= ~bitMask;
@@ -150,7 +150,7 @@ export default class BitField {
         end: number = this.buffer.length * 8,
     ): void {
         let byteIndex = start >> 3;
-        let bitMask = 0b1000_0000 >> start % 8;
+        let bitMask = 0b1000_0000 >> (start % 8);
 
         for (let bitIndex = start; bitIndex < end; bitIndex++) {
             callbackfn(!!(this.buffer[byteIndex] & bitMask), bitIndex);
@@ -170,8 +170,8 @@ export default class BitField {
      * @returns A boolean indicating whether all bits are unset.
      */
     isEmpty(): boolean {
-        for (let i = 0; i < this.buffer.length; i++) {
-            if (this.buffer[i] !== 0) {
+        for (let index = 0; index < this.buffer.length; index++) {
+            if (this.buffer[index] !== 0) {
                 return false;
             }
         }
