@@ -116,7 +116,9 @@ export default class BitField {
 
         let byteIndex = offset >> 3;
         let bitMask = 0b1000_0000 >> (offset % 8);
-        for (const element of array) {
+        // eslint-disable-next-line unicorn/no-for-loop -- `array` is `ArrayLike`, not guaranteed iterable.
+        for (let index = 0; index < array.length; index++) {
+            const element = array[index];
             if (element) {
                 this.buffer[byteIndex] |= bitMask;
             } else {
