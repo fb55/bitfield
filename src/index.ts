@@ -21,6 +21,7 @@ interface BitFieldOptions {
     grow?: number;
 }
 
+/** Bit-level set/get utility backed by a growable `Uint8Array`. */
 export default class BitField {
     /**
      * Grow the bitfield up to this number of entries.
