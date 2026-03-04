@@ -31,9 +31,9 @@ jobs:
             fail-fast: false
             matrix:
                 node:
-                    - 14
-                    - 16
-                    - 18
+                    - 20
+                    - 22
+                    - 24
                     - lts/*
 
         steps:

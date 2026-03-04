@@ -1,6 +1,6 @@
 import BitField from "./index.js";
 
-const data = "011011100110111".split("").map(Number).map(Boolean);
+const data = Array.from("011011100110111", Number).map(Boolean);
 
 describe("Bitfield", () => {
     describe("constructor", () => {
@@ -52,12 +52,12 @@ describe("Bitfield", () => {
         it("should reproduce written data", () => {
             const field = new BitField(data.length);
 
-            for (let index = 0; index < data.length; index++) {
-                field.set(index, data[index]);
+            for (const [index, datum] of data.entries()) {
+                field.set(index, datum);
             }
 
-            for (let index = 0; index < data.length; index++) {
-                expect(field.get(index)).toBe(data[index]);
+            for (const [index, datum] of data.entries()) {
+                expect(field.get(index)).toBe(datum);
             }
         });
 
@@ -167,8 +167,8 @@ describe("Bitfield", () => {
 
             field.setAll(data);
 
-            for (let index = 0; index < data.length; index++) {
-                expect(field.get(index)).toBe(data[index]);
+            for (const [index, datum] of data.entries()) {
+                expect(field.get(index)).toBe(datum);
             }
         });
 
