@@ -3,7 +3,7 @@ import { includeIgnoreFile } from "@eslint/compat";
 import feedicFlatConfig from "@feedic/eslint-config";
 import { commonTypeScriptRules } from "@feedic/eslint-config/typescript";
 import { defineConfig } from "eslint/config";
-import eslintConfigPrettier from "eslint-config-prettier";
+import eslintConfigBiome from "eslint-config-biome";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
@@ -11,6 +11,11 @@ const gitignorePath = fileURLToPath(new URL(".gitignore", import.meta.url));
 
 export default defineConfig([
     includeIgnoreFile(gitignorePath),
+    {
+        linterOptions: {
+            reportUnusedDisableDirectives: "error",
+        },
+    },
     {
         ignores: ["eslint.config.{js,cjs,mjs}"],
     },
@@ -27,7 +32,6 @@ export default defineConfig([
         },
         rules: {
             ...commonTypeScriptRules,
-            "@typescript-eslint/no-unused-vars": 0,
         },
     },
     {
@@ -39,5 +43,5 @@ export default defineConfig([
             "unicorn/no-array-for-each": 0,
         },
     },
-    eslintConfigPrettier,
+    eslintConfigBiome,
 ]);
