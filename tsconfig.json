@@ -1,18 +1,15 @@
 {
     "compilerOptions": {
-        /* Basic Options */
-        "target": "es5",
-        "module": "commonjs",
-        "lib": ["ES2015.Core"],
+        "target": "es2022",
+        "module": "nodenext",
+        "moduleResolution": "nodenext",
         "declaration": true,
         "declarationMap": true,
         "sourceMap": true,
-        "outDir": "lib",
+        "outDir": "dist",
 
-        /* Strict Type-Checking Options */
         "strict": true,
 
-        /* Additional Checks */
         "exactOptionalPropertyTypes": true,
         "forceConsistentCasingInFileNames": true,
         "isolatedModules": true,
@@ -23,10 +20,6 @@
         "noPropertyAccessFromIndexSignature": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-
-        /* Module Resolution Options */
-        "esModuleInterop": true,
-        "moduleResolution": "node",
         "resolveJsonModule": true
     },
     "include": ["src"],
