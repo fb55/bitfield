@@ -1,3 +1,4 @@
+import { describe, expect, it } from "vitest";
 import BitField from "./index.js";
 
 const data = Array.from("011011100110111", Number).map(Boolean);
