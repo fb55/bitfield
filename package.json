@@ -2,7 +2,7 @@
     "type": "module",
     "name": "bitfield",
     "description": "a simple bitfield, compliant with the BitTorrent spec",
-    "version": "5.0.0",
+    "version": "5.0.1",
     "author": "Felix Boehm <me@feedic.com>",
     "funding": {
         "type": "github",
