@@ -18,7 +18,9 @@
         }
     },
     "files": [
-        "dist/**/*"
+        "dist",
+        "src",
+        "!**/*.spec.ts"
     ],
     "bugs": {
         "url": "https://github.com/fb55/bitfield/issues"
