@@ -20,8 +20,6 @@
         "noPropertyAccessFromIndexSignature": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-
-        "esModuleInterop": true,
         "resolveJsonModule": true
     },
     "include": ["src"],
