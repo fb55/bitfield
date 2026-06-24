@@ -30,11 +30,6 @@ export default class BitField {
     /** The internal storage of the bitfield. */
     buffer: Uint8Array;
 
-    /** The number of bits in the bitfield. */
-    get length(): number {
-        return this.buffer.length << 3;
-    }
-
     /**
      * Constructs a BitField.
      * @param data Either a number representing the maximum number of supported bits, or a Uint8Array.
@@ -49,6 +44,11 @@ export default class BitField {
             : 0;
         this.buffer =
             typeof data === "number" ? new Uint8Array(bitsToBytes(data)) : data;
+    }
+
+    /** The number of bits in the bitfield. */
+    get length(): number {
+        return this.buffer.length << 3;
     }
 
     /**
@@ -71,6 +71,7 @@ export default class BitField {
      * @param bitIndex Bit index to set.
      * @param value Value to set the bit to. Defaults to `true`.
      */
+    // eslint-disable-next-line unicorn/consistent-boolean-name -- `value` is a public API parameter name; renaming would be a breaking change.
     set(bitIndex: number, value = true): void {
         const byteIndex = bitIndex >> 3;
 
@@ -113,8 +114,8 @@ export default class BitField {
         let bitMask = 0b1000_0000 >> (offset % 8);
         // eslint-disable-next-line unicorn/no-for-loop -- `array` is `ArrayLike`, not guaranteed iterable.
         for (let index = 0; index < array.length; index++) {
-            const element = array[index];
-            if (element) {
+            const isElement = array[index];
+            if (isElement) {
                 this.buffer[byteIndex] |= bitMask;
             } else {
                 this.buffer[byteIndex] &= ~bitMask;
@@ -141,6 +142,7 @@ export default class BitField {
      * @param end Index of the first bit that should no longer be considered.
      */
     forEach(
+        // eslint-disable-next-line unicorn/consistent-boolean-name -- `bit` is part of the public callback signature; renaming would be a breaking change.
         callbackfn: (bit: boolean, index: number) => void,
         start = 0,
         end: number = this.buffer.length * 8,

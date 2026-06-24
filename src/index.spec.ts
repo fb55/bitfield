@@ -121,6 +121,7 @@ describe("Bitfield", () => {
 
             it("should be able to grow to infinity", () => {
                 const growField = new BitField(data.length, {
+                    // eslint-disable-next-line unicorn/prefer-global-number-constants -- biome's lint/style/useNumberNamespace requires the namespaced form; keep both linters happy.
                     grow: Number.POSITIVE_INFINITY,
                 });
 
